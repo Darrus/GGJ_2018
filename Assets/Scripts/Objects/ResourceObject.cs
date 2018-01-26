@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Resources : BaseObject
+public class ResourceObject : BaseObject
 {
     public ResourceManager.RESOURCE_TYPE resourceType;
 

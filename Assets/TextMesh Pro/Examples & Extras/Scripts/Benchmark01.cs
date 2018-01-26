@@ -62,7 +62,6 @@ namespace TMPro.Examples
                 m_material01 = m_textMeshPro.font.material;
                 m_material02 = Resources.Load("Fonts & Materials/LiberationSans SDF - Drop Shadow", typeof(Material)) as Material; // Make sure the LiberationSans SDF exists before calling this...  
 
-
             }
             else if (BenchmarkType == 1) // TextMesh
             {
