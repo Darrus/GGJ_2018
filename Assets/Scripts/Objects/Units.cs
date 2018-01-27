@@ -8,6 +8,7 @@ public class Units : BaseObject {
     public int moveSpeed;
     public float actionDelayDuration;
     public TileScript lastTile;
+    public BaseObject target;
 
     public enum UNIT_STATE
     {
@@ -17,13 +18,16 @@ public class Units : BaseObject {
     }
 
     protected UNIT_STATE state;
-    protected BaseObject target;
     protected float actionDelayTimer;
     protected Queue<TileScript> path;
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
 
     protected override void Awake()
     {
         base.Awake();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         state = UNIT_STATE.IDLE;
         objectType = OBJECT_TYPE.UNITS;
         actionDelayTimer = actionDelayDuration;
@@ -70,19 +74,29 @@ public class Units : BaseObject {
 
     protected virtual void Move()
     {
-        Vector3 direction = path.Peek().transform.position - transform.position;
+        if(path == null || path.Count <= 0)
+        {
+            state = UNIT_STATE.IDLE;
+            return;
+        }
+
+        Vector3 direction = (path.Peek().transform.position + new Vector3(1.25f, 1.25f)) - transform.position;
         lastTile = currentTile;
-        if(direction.sqrMagnitude < 0.01f)
+
+        // Set sprite direction
+        animator.SetFloat("moveX", direction.x);
+        animator.SetFloat("moveY", direction.y);
+        if (direction.x < 0.0f)
+            spriteRenderer.flipX = true;
+        else if(direction.x > 0.0f)
+            spriteRenderer.flipX = false;
+
+        if (direction.sqrMagnitude < 0.01f)
         {
             currentTile.UnitExitTile(this.gameObject);
             currentTile = path.Peek();
             currentTile.UnitEnterTile(this.gameObject);
             path.Dequeue();
-            if (path.Count <= 0)
-            {
-                state = UNIT_STATE.IDLE;
-                return;
-            }
         }
 
         Vector3 newPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
