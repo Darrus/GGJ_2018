@@ -1,24 +1,34 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BaseObject : MonoBehaviour {
     public enum OBJECT_TYPE
     {
-        BASE,
         RESOURCE,
         BUILDING,
-        UNITS
+        UNITS,
+        MAX,
+        NIL
     }
 
-    protected OBJECT_TYPE objectType;
     public int maxHealth;
-    protected int health;
     public bool isDead = false;
+    [HideInInspector]
+    public OBJECT_TYPE objectType;
+
+    protected int health;
+    protected TileScript currentTile;
 
     private void Awake()
     {
-        objectType = OBJECT_TYPE.BASE;
+        objectType = OBJECT_TYPE.NIL;
         health = maxHealth;
+    }
+
+    private void Start()
+    {
+       
     }
 
     public void TakeDamage(int amount)
