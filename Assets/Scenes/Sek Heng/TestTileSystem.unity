@@ -123,30 +123,13 @@ GameObject:
   - component: {fileID: 201862585}
   - component: {fileID: 201862584}
   - component: {fileID: 201862583}
-  - component: {fileID: 201862582}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Arrow Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &201862582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 201862581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &201862583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,9 +159,9 @@ Canvas:
   m_GameObject: {fileID: 201862581}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 1589662276}
+  m_PlaneDistance: 7
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -220,7 +203,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4155590702497776, guid: 98daee60bb968294e897f5de7c2a8c36, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 4155590702497776, guid: 98daee60bb968294e897f5de7c2a8c36, type: 2}
       propertyPath: m_LocalPosition.z
@@ -379,7 +362,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!4 &1397448694
 Transform:
@@ -561,7 +544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000019073, y: -170}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 117.8, y: 264.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508919624
@@ -597,6 +580,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1508919622}
+--- !u!20 &1589662276 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20490477973506580, guid: 98daee60bb968294e897f5de7c2a8c36,
+    type: 2}
+  m_PrefabInternal: {fileID: 602848077}
 --- !u!1001 &1872538921
 Prefab:
   m_ObjectHideFlags: 0
