@@ -36,12 +36,12 @@ public class Enemy : Units
                 return;
             }
 
-            ResourceObject item = target.GetComponent<ResourceObject>();
-            if (item != null && actionDelayTimer <= 0.0f)
+            if (actionDelayTimer <= 0.0f)
             {
-                item.TakeDamage(damage);
+                target.TakeDamage(damage);
                 actionDelayTimer = actionDelayDuration;
             }
+
             if (target.isDead)
             {
                 state = UNIT_STATE.IDLE;
@@ -61,5 +61,25 @@ public class Enemy : Units
 
         Vector3 newPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
         transform.position = newPosition;
+    }
+
+    public override void TakeDamage(int amount)
+    {
+        List<BaseObject> units = ObjectManager.Instance.GetList(OBJECT_TYPE.UNITS);
+
+        foreach(var unit in units)
+        {
+            if(unit.name == "Player")
+            {
+                AttackTarget(unit);
+            }
+        }
+
+        health -= amount;
+        if (health < 0)
+        {
+            isDead = true;
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -59,14 +59,24 @@ public class Player : Units {
             AttackTarget(unit);
             return;
         }
-        if(path.Count <=0)
+
+        if(path.Count <= 0)
         {
-            Enemy enemy = target.GetComponent<Enemy>();
-            if (enemy != null && actionDelayTimer <= 0.0f)
+            if(target == null)
             {
-                Debug.Log(enemy);
-                enemy.TakeDamage(damage);
-                actionDelayTimer = actionDelayDuration;
+                state = UNIT_STATE.IDLE;
+                return;
+            }
+
+            Enemy enemy = target.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                if (actionDelayTimer <= 0.0f)
+                {
+                    enemy.TakeDamage(damage);
+                    actionDelayTimer = actionDelayDuration;
+                }
+                return;
             }
             if (target.isDead)
             {
