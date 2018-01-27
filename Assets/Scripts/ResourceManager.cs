@@ -23,4 +23,13 @@ public class ResourceManager : MonoBehaviour {
     {
         return resources[(int)type];
     }
+
+    public bool UseResource(RESOURCE_TYPE type, int amount)
+    {
+        if (resources[(int)type] < amount)
+            return false;
+
+        resources[(int)type] -= amount;
+        return true;
+    }
 }

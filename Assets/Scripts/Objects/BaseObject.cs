@@ -10,16 +10,18 @@ public class BaseObject : MonoBehaviour {
         UNITS
     }
 
-    public OBJECT_TYPE objectType;
+    protected OBJECT_TYPE objectType;
+    public int maxHealth;
     protected int health;
     public bool isDead = false;
 
     private void Awake()
     {
         objectType = OBJECT_TYPE.BASE;
+        health = maxHealth;
     }
 
-    public int TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         health -= amount;
         if (health < 0)
@@ -27,6 +29,12 @@ public class BaseObject : MonoBehaviour {
             isDead = true;
             Destroy(this);
         }
-        return 0;
+    }
+
+    public void RecoverHealth(int amount)
+    {
+        health += amount;
+        if (health > maxHealth)
+            health = maxHealth;
     }
 }
