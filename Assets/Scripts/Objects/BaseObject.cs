@@ -16,7 +16,7 @@ public class BaseObject : MonoBehaviour {
     public bool isDead = false;
     [HideInInspector]
     public OBJECT_TYPE objectType;
-
+    [SerializeField]
     protected int health;
     [SerializeField]
     protected TileScript currentTile;
@@ -37,7 +37,7 @@ public class BaseObject : MonoBehaviour {
 
     protected virtual void InitCurrentTile()
     {
-        SubscriptionSystem.Instance.UnsubcribeEvent("TileUpdated", InitCurrentTile);
+        SubscriptionSystem.Instance.UnsubscribeEvent("TileUpdated", InitCurrentTile);
         currentTile = TileSystem.Instance.GetTileScript(transform.position);
         currentTile.UnitEnterTile(this.gameObject);
     }
@@ -61,6 +61,7 @@ public class BaseObject : MonoBehaviour {
 
     protected virtual void OnDestroy()
     {
+        TileSystem.Instance.RemoveTile(transform.position);
         currentTile.UnitExitTile(this.gameObject);
     }
 }

@@ -11,7 +11,7 @@ public class Player : Units {
         if(go == this.gameObject)
         {
             Debug.Log(go);
-            SubscriptionSystem.Instance.UnsubcribeEvent<GameObject>("LeftClick", Select);
+            SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("RightClick", Deselect);
         }
@@ -19,8 +19,8 @@ public class Player : Units {
 
     void Deselect(GameObject go)
     {
-        SubscriptionSystem.Instance.UnsubcribeEvent<GameObject>("LeftClick", InteractSelected);
-        SubscriptionSystem.Instance.UnsubcribeEvent<GameObject>("RightClick", Deselect);
+        SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", InteractSelected);
+        SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("RightClick", Deselect);
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
     }
 

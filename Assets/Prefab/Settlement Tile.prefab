@@ -9,44 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1353810528024170}
+  m_RootGameObject: {fileID: 1579139917773768}
   m_IsPrefabParent: 1
---- !u!1 &1353810528024170
+--- !u!1 &1579139917773768
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4971919136682670}
-  - component: {fileID: 61304517076034474}
-  - component: {fileID: 114880646712065046}
+  - component: {fileID: 4648074057726188}
+  - component: {fileID: 114842163449588138}
+  - component: {fileID: 61480976360970192}
   m_Layer: 0
-  m_Name: Tile Data
+  m_Name: Settlement Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4971919136682670
+--- !u!4 &4648074057726188
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1353810528024170}
+  m_GameObject: {fileID: 1579139917773768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8123069, y: -1.6058545, z: 0.031423807}
+  m_LocalPosition: {x: 0.20171517, y: -2.1971428, z: -9.075705}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61304517076034474
+--- !u!61 &61480976360970192
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1353810528024170}
+  m_GameObject: {fileID: 1579139917773768}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -64,19 +64,32 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.4, y: 2.2}
   m_EdgeRadius: 0
---- !u!114 &114880646712065046
+--- !u!114 &114842163449588138
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1353810528024170}
+  m_GameObject: {fileID: 1579139917773768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd4b3ed44ce4b84a94455b9943840d6, type: 3}
+  m_Script: {fileID: 11500000, guid: ba23ca1f6f5c29d4fbbbd2e03806a801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TileType: 0
-  m_NumberOfUnitOccupied: 0
-  m_ListOfUnitsOccupying: []
+  maxHealth: 4
+  isDead: 0
+  objectType: 0
+  health: 4
+  currentTile: {fileID: 0}
+  m_ListOfUpgrades:
+  - m_RequiredType: 0
+    m_AmountOfResource: 0
+    m_UpgradedTile: {fileID: 11400000, guid: 02669dfccd78afe48be41abf2f5afc1e, type: 2}
+  m_CurrentUpgradeIndex: 0
+  m_RuinedBuildingTile: {fileID: 11400000, guid: 56274f4417e15ce478ef1e4b8dfaff52,
+    type: 2}
+  m_StateOfBuilding: 0
+  m_OriginalMaxHP: 0
+  m_DestroyIt: 0
+  m_RestoreFullHealth: 0
