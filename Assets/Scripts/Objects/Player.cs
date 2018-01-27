@@ -12,7 +12,7 @@ public class Player : Units
     {
         if(go == this.gameObject)
         {
-            Debug.Log(go);
+            SubscriptionSystem.Instance.TriggerEvent("SelectPlayer");
             SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("RightClick", Deselect);
@@ -85,8 +85,8 @@ public class Player : Units
                 return;
             }
         }
-           
 
+        Debug.Log(path.Count);
         Vector3 direction = path.Peek().transform.position - transform.position;
         lastTile = currentTile;
         if (direction.sqrMagnitude < 0.01f)

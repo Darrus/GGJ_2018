@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Enemy : Units
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        SubscriptionSystem.Instance.TriggerEvent<Transform>("SpawnArrow", transform);
+    }
+
     protected override void Idle()
     {
         float closestDistance = float.MaxValue;

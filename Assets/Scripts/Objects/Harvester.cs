@@ -14,6 +14,7 @@ public class Harvester : Units
     {
         if (go == this.gameObject)
         {
+            SubscriptionSystem.Instance.TriggerEvent("SelectHarvester");
             SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("RightClick", Deselect);

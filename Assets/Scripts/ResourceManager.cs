@@ -5,7 +5,7 @@ public class ResourceManager : Singleton<ResourceManager> {
     public enum RESOURCE_TYPE
     {
         WOOD,
-        STONE,
+        STEEL,
         MAX
     }
 
