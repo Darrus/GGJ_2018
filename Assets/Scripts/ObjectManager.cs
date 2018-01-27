@@ -25,6 +25,11 @@ public class ObjectManager : Singleton<ObjectManager>
         objectList[(int)type].Add(baseObject);
     }
 
+    public void RemoveObject(BaseObject.OBJECT_TYPE type, BaseObject baseObject)
+    {
+        objectList[(int)type].Remove(baseObject);
+    }
+
     public List<BaseObject> GetList(BaseObject.OBJECT_TYPE type)
     {
         return objectList[(int)type];

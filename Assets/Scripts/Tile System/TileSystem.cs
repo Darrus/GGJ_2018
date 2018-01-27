@@ -49,7 +49,7 @@ public class TileSystem : Singleton<TileSystem> {
         yield break;
     }
 
-    List<TileScript> GetNeighbourTiles(TileScript _tile)
+    public List<TileScript> GetNeighbourTiles(TileScript _tile)
     {
         List<TileScript> returnList = new List<TileScript>();
         int PositionOfTileX_ToTileMap = (int)(_tile.transform.position.x / m_TileMap.cellSize.x);

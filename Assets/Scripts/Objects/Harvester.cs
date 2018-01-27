@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Harvester : Units
 {
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
     }
 
@@ -35,10 +36,10 @@ public class Harvester : Units
             switch (baseObject.objectType)
             {
                 case OBJECT_TYPE.RESOURCE:
-                    break;
-                case OBJECT_TYPE.UNITS:
                     AttackTarget(baseObject);
                     state = UNIT_STATE.ATTACK;
+                    break;
+                case OBJECT_TYPE.UNITS:
                     break;
             }
         }

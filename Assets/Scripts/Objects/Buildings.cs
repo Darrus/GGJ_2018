@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Buildings : BaseObject
 {
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         objectType = OBJECT_TYPE.BUILDING;
     }
 }

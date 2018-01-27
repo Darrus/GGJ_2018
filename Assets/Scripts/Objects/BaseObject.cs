@@ -40,6 +40,7 @@ public class BaseObject : MonoBehaviour {
         SubscriptionSystem.Instance.UnsubcribeEvent("TileUpdated", InitCurrentTile);
         currentTile = TileSystem.Instance.GetTileScript(transform.position);
         currentTile.UnitEnterTile(this.gameObject);
+        ObjectManager.Instance.AddObject(objectType, this);
     }
 
     public virtual void TakeDamage(int amount)
@@ -61,6 +62,7 @@ public class BaseObject : MonoBehaviour {
 
     protected virtual void OnDestroy()
     {
+        ObjectManager.Instance.RemoveObject(objectType, this);
         currentTile.UnitExitTile(this.gameObject);
     }
 }

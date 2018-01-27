@@ -6,26 +6,33 @@ using UnityEngine.Tilemaps;
 public class Units : BaseObject {
     public int damage;
     public int moveSpeed;
-    public float actionDelayTimer;
+    public float actionDelayDuration;
+    public TileScript lastTile;
+
     public enum UNIT_STATE
     {
         IDLE,
         MOVE,
         ATTACK
     }
+
     protected UNIT_STATE state;
     protected BaseObject target;
-    public TileScript lastTile;
-    Queue<TileScript> path;
+    protected float actionDelayTimer;
+    protected Queue<TileScript> path;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        state = UNIT_STATE.IDLE;
         objectType = OBJECT_TYPE.UNITS;
+        actionDelayTimer = actionDelayDuration;
     }
 
     private void Update()
     {
-        switch(state)
+        actionDelayTimer -= Time.deltaTime;
+        switch (state)
         {
             case UNIT_STATE.IDLE:
                 Idle();
@@ -43,16 +50,26 @@ public class Units : BaseObject {
     {
         Tilemap tilemap = TileSystem.Instance.TileMap;
         state = UNIT_STATE.MOVE;
-        UnityEngine.Vector3Int v3IntEndPos = new Vector3Int((int)pos.x, (int)pos.y, 0);
         path = new Queue<TileScript>(
             TileSystem.Instance.GetFoundPath(
             currentTile,
-            tilemap.GetInstantiatedObject(v3IntEndPos).GetComponent<TileScript>()));
+            TileSystem.Instance.GetTileScript(pos)));
     }
 
     public void AttackTarget(BaseObject go)
     {
+        target = go;
         state = UNIT_STATE.ATTACK;
+        if(go.CurrentTile.TileType != TileScript.TILE_TYPE.WALKABLE)
+        {
+            List<TileScript> neighbourTiles = TileSystem.Instance.GetNeighbourTiles(go.CurrentTile);
+            foreach (TileScript tile in neighbourTiles)
+            {
+                if (tile.TileType == TileScript.TILE_TYPE.WALKABLE)
+                    path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, tile));
+                return;
+            }
+        }
         path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, go.CurrentTile));
     }
 
@@ -64,9 +81,9 @@ public class Units : BaseObject {
     protected virtual void Move()
     {
         Vector3 direction = path.Peek().transform.position - transform.position;
+        lastTile = currentTile;
         if(direction.sqrMagnitude < 0.01f)
         {
-            lastTile = currentTile;
             currentTile.UnitExitTile(this.gameObject);
             currentTile = path.Peek();
             currentTile.UnitEnterTile(this.gameObject);
@@ -84,21 +101,6 @@ public class Units : BaseObject {
 
     protected virtual void Attack()
     {
-        Vector3 direction = path.Peek().transform.position - transform.position;
-        if (direction.sqrMagnitude < 0.01f)
-        {
-            lastTile = currentTile;
-            currentTile.UnitExitTile(this.gameObject);
-            currentTile = path.Peek();
-            currentTile.UnitEnterTile(this.gameObject);
-            path.Dequeue();
-            //if ()
-            //{
-            //    return;
-            //}
-        }
-
-        Vector3 newPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
-        transform.position = newPosition;
+        
     }
 }

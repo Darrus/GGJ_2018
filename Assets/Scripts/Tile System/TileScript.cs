@@ -40,6 +40,11 @@ public class TileScript : MonoBehaviour {
         DecrementUnitOccupied();
     }
 
+    public GameObject GetOccupyingUnit()
+    {
+        return m_ListOfUnitsOccupying.Count > 0 ? m_ListOfUnitsOccupying[0] : null;
+    }
+
     public void IncrementUnitOccupied()
     {
         ++m_NumberOfUnitOccupied;
