@@ -63,7 +63,8 @@ public class BaseObject : MonoBehaviour {
 
     protected virtual void OnDestroy()
     {
-        ObjectManager.Instance.RemoveObject(objectType, this);
+        if(ObjectManager.Instance != null)
+            ObjectManager.Instance.RemoveObject(objectType, this);
         currentTile.UnitExitTile(this.gameObject);
     }
 }

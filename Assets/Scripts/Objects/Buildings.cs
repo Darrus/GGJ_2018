@@ -26,6 +26,7 @@ public abstract class Buildings : BaseObject
     [SerializeField, Tooltip("State of building")]
     protected STATE_OF_BUILDING m_StateOfBuilding = STATE_OF_BUILDING.COMPLETE;
     [SerializeField] int m_OriginalMaxHP;
+    public bool isRuined = false;
 
 #if UNITY_EDITOR
     [SerializeField] bool m_DestroyIt = false;
@@ -68,6 +69,8 @@ public abstract class Buildings : BaseObject
             m_StateOfBuilding = STATE_OF_BUILDING.RUINED;
             BuildingManager.Instance.SetBuildingTile(m_RuinedBuildingTile, transform.position);
             maxHealth = m_OriginalMaxHP;
+            ObjectManager.Instance.RemoveObject(objectType, this);
+            isRuined = true;
         }
     }
 

@@ -7,7 +7,6 @@ public class ResourceObject : BaseObject
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log(maxHealth);
         objectType = OBJECT_TYPE.RESOURCE;
     }
 

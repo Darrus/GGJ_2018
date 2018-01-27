@@ -9,7 +9,7 @@ public class Enemy : Units
         float closestDistance = float.MaxValue;
         BaseObject closestTarget = null;
 
-        //List<BaseObject> buildings = ObjectManager.Instance.GetList(OBJECT_TYPE.BUILDINGS);
+        List<BaseObject> buildings = ObjectManager.Instance.GetList(OBJECT_TYPE.BUILDING);
         List<BaseObject> resources = ObjectManager.Instance.GetList(OBJECT_TYPE.RESOURCE);
 
         foreach(BaseObject resource in resources)
@@ -22,13 +22,25 @@ public class Enemy : Units
             }
         }
 
+        foreach(BaseObject building in buildings)
+        {
+            float sqrDist = (transform.position - building.transform.position).sqrMagnitude;
+            if (sqrDist < closestDistance)
+            {
+                closestTarget = building;
+                closestDistance = sqrDist;
+            }
+        }
+
         if(closestTarget != null)
             AttackTarget(closestTarget);
     }
 
     protected override void Attack()
     {
-        if(path.Count <= 0)
+        lastTile = currentTile;
+
+        if (path.Count <= 0)
         {
             if(target == null)
             {
@@ -42,15 +54,16 @@ public class Enemy : Units
                 actionDelayTimer = actionDelayDuration;
             }
 
-            if (target.isDead)
+            Buildings building = target as Buildings;
+            if (target.isDead || (building != null && building.isRuined))
             {
                 state = UNIT_STATE.IDLE;
             }
+
             return;
         }
 
         Vector3 direction = path.Peek().transform.position - transform.position;
-        lastTile = currentTile;
         if (direction.sqrMagnitude < 0.01f)
         {
             currentTile.UnitExitTile(this.gameObject);

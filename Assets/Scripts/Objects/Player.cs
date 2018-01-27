@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class Player : Units {
+public class Player : Units
+{
     protected override void Awake()
     {
         base.Awake();
@@ -60,7 +61,7 @@ public class Player : Units {
             return;
         }
 
-        if(path.Count <= 0)
+        if(path == null || path.Count <= 0)
         {
             if(target == null)
             {
@@ -94,14 +95,17 @@ public class Player : Units {
             currentTile = path.Peek();
             currentTile.UnitEnterTile(this.gameObject);
             path.Dequeue();
-            GameObject go = path.Peek().GetOccupyingUnit();
-            if(go != null)
+            if(path.Count > 0)
             {
-                Enemy enemy = go.GetComponent<Enemy>();
-                if (enemy != null && enemy == target && actionDelayTimer <= 0.0f)
+                GameObject go = path.Peek().GetOccupyingUnit();
+                if (go != null)
                 {
-                    enemy.TakeDamage(damage);
-                    actionDelayTimer = actionDelayDuration;
+                    Enemy enemy = go.GetComponent<Enemy>();
+                    if (enemy != null && enemy == target && actionDelayTimer <= 0.0f)
+                    {
+                        enemy.TakeDamage(damage);
+                        actionDelayTimer = actionDelayDuration;
+                    }
                 }
             }
         }
