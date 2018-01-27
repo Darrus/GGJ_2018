@@ -30,12 +30,14 @@ public class TileScript : MonoBehaviour {
         if (!m_ListOfUnitsOccupying.Contains(_unitGO))
         {
             m_ListOfUnitsOccupying.Add(_unitGO);
+            IncrementUnitOccupied();
         }
     }
 
     public void UnitExitTile(GameObject _unitGO)
     {
         m_ListOfUnitsOccupying.Remove(_unitGO);
+        DecrementUnitOccupied();
     }
 
     public void IncrementUnitOccupied()

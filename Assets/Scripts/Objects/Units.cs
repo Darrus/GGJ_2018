@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class Units : BaseObject {
     public int damage;
     public int moveSpeed;
+    public float actionDelayTimer;
     public enum UNIT_STATE
     {
         IDLE,
@@ -14,7 +15,7 @@ public class Units : BaseObject {
     }
     protected UNIT_STATE state;
     protected BaseObject target;
-    protected Vector3 targetLastPos;
+    public TileScript lastTile;
     Queue<TileScript> path;
 
     private void Awake()
@@ -41,16 +42,18 @@ public class Units : BaseObject {
     public void MoveTo(Vector2 pos)
     {
         Tilemap tilemap = TileSystem.Instance.TileMap;
-        Vector3Int v3IntStartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
-        currentTile = tilemap.GetInstantiatedObject(v3IntStartPos).GetComponent<TileScript>();
-        currentTile.UnitEnterTile(this.gameObject);
-
         state = UNIT_STATE.MOVE;
         UnityEngine.Vector3Int v3IntEndPos = new Vector3Int((int)pos.x, (int)pos.y, 0);
         path = new Queue<TileScript>(
             TileSystem.Instance.GetFoundPath(
             currentTile,
             tilemap.GetInstantiatedObject(v3IntEndPos).GetComponent<TileScript>()));
+    }
+
+    public void AttackTarget(BaseObject go)
+    {
+        state = UNIT_STATE.ATTACK;
+        path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, go.CurrentTile));
     }
 
     protected virtual void Idle()
@@ -60,10 +63,10 @@ public class Units : BaseObject {
 
     protected virtual void Move()
     {
-
         Vector3 direction = path.Peek().transform.position - transform.position;
         if(direction.sqrMagnitude < 0.01f)
         {
+            lastTile = currentTile;
             currentTile.UnitExitTile(this.gameObject);
             currentTile = path.Peek();
             currentTile.UnitEnterTile(this.gameObject);
@@ -81,6 +84,21 @@ public class Units : BaseObject {
 
     protected virtual void Attack()
     {
+        Vector3 direction = path.Peek().transform.position - transform.position;
+        if (direction.sqrMagnitude < 0.01f)
+        {
+            lastTile = currentTile;
+            currentTile.UnitExitTile(this.gameObject);
+            currentTile = path.Peek();
+            currentTile.UnitEnterTile(this.gameObject);
+            path.Dequeue();
+            //if ()
+            //{
+            //    return;
+            //}
+        }
 
+        Vector3 newPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
+        transform.position = newPosition;
     }
 }

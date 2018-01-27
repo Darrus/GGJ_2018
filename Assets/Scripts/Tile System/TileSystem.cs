@@ -45,6 +45,7 @@ public class TileSystem : Singleton<TileSystem> {
         // delay by a frame so that the tiles will be instantiated
         yield return null;
         m_WalkableTiles = m_TileMap.GetComponentsInChildren<TileScript>();
+        SubscriptionSystem.Instance.TriggerEvent("TileUpdated");
         yield break;
     }
 
@@ -73,6 +74,13 @@ public class TileSystem : Singleton<TileSystem> {
             }
         }
         return returnList;
+    }
+
+    public TileScript GetTileScript(Vector3 pos)
+    {
+        int PositionOfTileX_ToTileMap = (int)(pos.x / m_TileMap.cellSize.x);
+        int PositionOfTileY_ToTileMap = (int)(pos.y / m_TileMap.cellSize.y);
+        return m_TileMap.GetInstantiatedObject(new Vector3Int(PositionOfTileX_ToTileMap, PositionOfTileY_ToTileMap, 0)).GetComponent<TileScript>();
     }
 
     public List<TileScript> GetFoundPath(TileScript _startTile, TileScript _endTile)

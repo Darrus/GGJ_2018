@@ -4,6 +4,7 @@ public class ResourceManager : MonoBehaviour {
     public enum RESOURCE_TYPE
     {
         WOOD,
+        STONE,
         MAX
     }
 

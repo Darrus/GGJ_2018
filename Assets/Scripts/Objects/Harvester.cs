@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Player : Units {
+public class Harvester : Units
+{
     private void Awake()
     {
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
@@ -8,7 +11,7 @@ public class Player : Units {
 
     void Select(GameObject go)
     {
-        if(go == this.gameObject)
+        if (go == this.gameObject)
         {
             Debug.Log(go);
             SubscriptionSystem.Instance.UnsubcribeEvent<GameObject>("LeftClick", Select);

@@ -4,8 +4,9 @@ public class ResourceObject : BaseObject
 {
     public ResourceManager.RESOURCE_TYPE resourceType;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         objectType = OBJECT_TYPE.RESOURCE;
     }
 
@@ -16,7 +17,7 @@ public class ResourceObject : BaseObject
         {
             amount -= health;
             isDead = true;
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         return amount;
     }
