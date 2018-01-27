@@ -58,6 +58,7 @@ public class ArrowPointToUnit : MonoBehaviour {
             directionFromPosToTarget += targetToCanvasTransform;
             directionFromPosToTarget.x = Mathf.Clamp(directionFromPosToTarget.x, -m_ScreenHalfSize.x, m_ScreenHalfSize.x);
             directionFromPosToTarget.y = Mathf.Clamp(directionFromPosToTarget.y, -m_ScreenHalfSize.y, m_ScreenHalfSize.y);
+            directionFromPosToTarget.z = transform.localPosition.z;
             transform.localPosition = directionFromPosToTarget;
 
             // just stare at the target transform
