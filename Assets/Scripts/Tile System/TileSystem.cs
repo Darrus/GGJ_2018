@@ -90,7 +90,7 @@ public class TileSystem : Singleton<TileSystem> {
         m_TileMap.SetTile(new Vector3Int(PositionOfTileX_ToTileMap, PositionOfTileY_ToTileMap, 0), null);
     }
 
-    public List<TileScript> GetFoundPath(TileScript _startTile, TileScript _endTile)
+    public List<TileScript> GetFoundPath(TileScript _startTile, TileScript _endTile, bool ignoreEndNull = true)
     {
         m_SearchedPath.Clear();
         AStar_Node endNodePath = null;
@@ -100,6 +100,7 @@ public class TileSystem : Singleton<TileSystem> {
         AStar_Node startPathNode = new AStar_Node(_startTile, 0, Vector3.Distance(_startTile.transform.position, _endTile.transform.position), null);
         openSet.Add(startPathNode);
         openSetTileScript.Add(_startTile);
+
         while (openSet.Count > 0)
         {
             // get cheapest path
@@ -132,6 +133,17 @@ public class TileSystem : Singleton<TileSystem> {
                     openSetTileScript.Add(neighbourTile);
                     openSet.Add(nodePath);
                 }
+                else if (!ignoreEndNull && neighbourTile == _endTile && 
+                    !openSetTileScript.Contains(neighbourTile) && !closedSet.Contains(neighbourTile))
+                {
+                    // this might not be the correct way to calculate GCost but it works for now
+                    float GCost = Vector3.Distance(_startTile.transform.position, neighbourTile.transform.position) + cheapestNode.g_cost;
+                    float HCost = Vector3.Distance(neighbourTile.transform.position, _endTile.transform.position);
+                    AStar_Node nodePath = new AStar_Node(neighbourTile, GCost, HCost, cheapestNode);
+                    // then we can add it in the open list
+                    openSetTileScript.Add(neighbourTile);
+                    openSet.Add(nodePath);
+                }
             }
             closedSet.Add(cheapestNode.m_TileScript);
             openSet.Remove(cheapestNode);
@@ -141,6 +153,9 @@ public class TileSystem : Singleton<TileSystem> {
         if (endNodePath != null)
         {
             AStar_Node startTracingNode = endNodePath;
+            if (!ignoreEndNull)
+                startTracingNode = endNodePath.m_Parent;
+
             while (startTracingNode != null)
             {
                 m_SearchedPath.Add(startTracingNode.m_TileScript);

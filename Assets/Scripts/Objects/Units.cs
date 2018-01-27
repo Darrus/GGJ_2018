@@ -60,17 +60,20 @@ public class Units : BaseObject {
     {
         target = go;
         state = UNIT_STATE.ATTACK;
-        if(go.CurrentTile.TileType != TileScript.TILE_TYPE.WALKABLE)
-        {
-            List<TileScript> neighbourTiles = TileSystem.Instance.GetNeighbourTiles(go.CurrentTile);
-            foreach (TileScript tile in neighbourTiles)
-            {
-                if (tile.TileType == TileScript.TILE_TYPE.WALKABLE)
-                    path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, tile));
-                return;
-            }
-        }
-        path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, go.CurrentTile));
+        //if(go.CurrentTile.TileType != TileScript.TILE_TYPE.WALKABLE)
+        //{
+        //    List<TileScript> neighbourTiles = TileSystem.Instance.GetNeighbourTiles(go.CurrentTile);
+        //    foreach (TileScript tile in neighbourTiles)
+        //    {
+        //        if (tile.TileType == TileScript.TILE_TYPE.WALKABLE)
+        //        {
+        //            path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, tile));
+        //            Debug.Log(neighbourTiles.Count);
+        //        }
+        //        return;
+        //    }
+        //}
+        path = new Queue<TileScript>(TileSystem.Instance.GetFoundPath(currentTile, go.CurrentTile, false));
     }
 
     protected virtual void Idle()

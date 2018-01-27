@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c623db7fa1224e24faa5f83be13c8a1e
-timeCreated: 1517046700
+guid: 3050bbe9e01c4344d8a27d7d302ceb65
+timeCreated: 1517046736
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: player_0
+    21300000: harvester_0
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -91,13 +91,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_0
+      name: harvester_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 34
-        width: 226
-        height: 301
+        x: 5
+        y: 15
+        width: 241
+        height: 218
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

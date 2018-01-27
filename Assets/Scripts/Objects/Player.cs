@@ -33,8 +33,15 @@ public class Player : Units {
             switch (baseObject.objectType)
             {
                 case OBJECT_TYPE.RESOURCE:
+                    Deselect(null);
                     break;
                 case OBJECT_TYPE.UNITS:
+                    Harvester harvest = baseObject as Harvester;
+                    if (harvest != null)
+                    {
+                        Deselect(null);
+                        break;
+                    }
                     AttackTarget(baseObject);
                     state = UNIT_STATE.ATTACK;
                     break;

@@ -40,6 +40,7 @@ public class BaseObject : MonoBehaviour {
         SubscriptionSystem.Instance.UnsubscribeEvent("TileUpdated", InitCurrentTile);
         currentTile = TileSystem.Instance.GetTileScript(transform.position);
         currentTile.UnitEnterTile(this.gameObject);
+        transform.position = currentTile.transform.position;
         ObjectManager.Instance.AddObject(objectType, this);
     }
 

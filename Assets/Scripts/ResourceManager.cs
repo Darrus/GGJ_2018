@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class ResourceManager : MonoBehaviour {
+public class ResourceManager : Singleton<ResourceManager> {
     public enum RESOURCE_TYPE
     {
         WOOD,
@@ -8,19 +9,28 @@ public class ResourceManager : MonoBehaviour {
         MAX
     }
 
-    static int[] resources;
+    int[] resources;
+    [SerializeField, Tooltip("Tilemap which contains the buildings")]
+    protected Tilemap m_resourceTilemap;
+
+    public void SetResourceTile(Tile _whatTile, Vector3 _pos)
+    {
+        int PositionOfTileX_ToTileMap = (int)(_pos.x / m_resourceTilemap.cellSize.x);
+        int PositionOfTileY_ToTileMap = (int)(_pos.y / m_resourceTilemap.cellSize.y);
+        m_resourceTilemap.SetTile(new Vector3Int(PositionOfTileX_ToTileMap, PositionOfTileY_ToTileMap, 0), _whatTile);
+    }
 
     private void Awake()
     {
         resources = new int[(int)RESOURCE_TYPE.MAX];
     }
 
-    public static void AddResource(RESOURCE_TYPE type, int amount)
+    public void AddResource(RESOURCE_TYPE type, int amount)
     {
         resources[(int)type] += amount;
     }
 
-    public static int GetResourceCount(RESOURCE_TYPE type)
+    public int GetResourceCount(RESOURCE_TYPE type)
     {
         return resources[(int)type];
     }

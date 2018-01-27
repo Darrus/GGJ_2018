@@ -14,7 +14,6 @@ public class Harvester : Units
     {
         if (go == this.gameObject)
         {
-            Debug.Log(go);
             SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("RightClick", Deselect);
@@ -40,10 +39,43 @@ public class Harvester : Units
                     state = UNIT_STATE.ATTACK;
                     break;
                 case OBJECT_TYPE.UNITS:
+                    Deselect(null);
                     break;
             }
         }
         else
             MoveTo(go.transform.position);
+    }
+
+    protected override void Attack()
+    {
+        if (path.Count <= 0)
+        {
+            ResourceObject item = target.GetComponent<ResourceObject>();
+            if (item != null && actionDelayTimer <= 0.0f)
+            {
+                Debug.Log(item);
+                ResourceManager.Instance.AddResource(item.resourceType, item.Gather(damage));
+                actionDelayTimer = actionDelayDuration;
+            }
+            if (target.isDead)
+            {
+                state = UNIT_STATE.IDLE;
+            }
+            return;
+        }
+
+        Vector3 direction = path.Peek().transform.position - transform.position;
+        lastTile = currentTile;
+        if (direction.sqrMagnitude < 0.01f)
+        {
+            currentTile.UnitExitTile(this.gameObject);
+            currentTile = path.Peek();
+            currentTile.UnitEnterTile(this.gameObject);
+            path.Dequeue();
+        }
+
+        Vector3 newPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
+        transform.position = newPosition;
     }
 }

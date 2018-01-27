@@ -30,6 +30,12 @@ public class Enemy : Units
     {
         if(path.Count <= 0)
         {
+            if(target == null)
+            {
+                state = UNIT_STATE.IDLE;
+                return;
+            }
+
             ResourceObject item = target.GetComponent<ResourceObject>();
             if (item != null && actionDelayTimer <= 0.0f)
             {
