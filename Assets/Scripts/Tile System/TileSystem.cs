@@ -13,7 +13,7 @@ public class TileSystem : Singleton<TileSystem> {
     {
         get { return m_TileMap; }
     }
-    [SerializeField] protected Grid m_TileGrid;
+
 
     [Header("Debugging")]
     [SerializeField, Tooltip("Array of the TileScripts")]
@@ -45,29 +45,27 @@ public class TileSystem : Singleton<TileSystem> {
         // delay by a frame so that the tiles will be instantiated
         yield return null;
         m_WalkableTiles = m_TileMap.GetComponentsInChildren<TileScript>();
-        if (!m_TileGrid)
-        {
-            m_TileGrid = GetComponent<Grid>();
-        }
         yield break;
     }
 
     List<TileScript> GetNeighbourTiles(TileScript _tile)
     {
         List<TileScript> returnList = new List<TileScript>();
-        int cellSizeX = (int)m_TileGrid.cellSize.x;
-        int cellSizeY = (int)m_TileGrid.cellSize.y;
-        int centerPositionOfTileX = (int)_tile.transform.position.x;
-        int centerPositionOfTileY = (int)_tile.transform.position.y;
+        int PositionOfTileX_ToTileMap = (int)(_tile.transform.position.x / m_TileMap.cellSize.x);
+        int PositionOfTileY_ToTileMap = (int)(_tile.transform.position.y / m_TileMap.cellSize.y);
         // base on the tile position and grid's tile size!
-        for (int x = -cellSizeX; x <= cellSizeX; x += cellSizeX)
+        for (int x = -1; x <= 1; x += 1)
         {
-            for (int y = -cellSizeY; y <= cellSizeY; y += cellSizeY)
+            for (int y = -1; y <= 1; y += 1)
             {
                 // making sure centers and corners arent allowed
                 if (x == 0 && y == 0 || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1))
                     continue;
-                GameObject neighbourTileGO = m_TileMap.GetInstantiatedObject(new Vector3Int(x + centerPositionOfTileX, y + centerPositionOfTileY, 0));
+                int TotalXPosition = x + PositionOfTileX_ToTileMap;
+                int TotalYPosition = y + PositionOfTileY_ToTileMap;
+                if (!m_TileMap.HasTile(new Vector3Int(TotalXPosition, TotalYPosition, 0)))
+                    continue;
+                GameObject neighbourTileGO = m_TileMap.GetInstantiatedObject(new Vector3Int(TotalXPosition, TotalYPosition, 0));
                 if (neighbourTileGO)
                 {
                     returnList.Add(neighbourTileGO.GetComponent<TileScript>());
