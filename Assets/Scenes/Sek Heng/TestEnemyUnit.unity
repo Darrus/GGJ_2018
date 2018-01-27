@@ -300,11 +300,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4155590702497776, guid: 98daee60bb968294e897f5de7c2a8c36, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 4155590702497776, guid: 98daee60bb968294e897f5de7c2a8c36, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.37
+      value: -3.25
       objectReference: {fileID: 0}
     - target: {fileID: 4155590702497776, guid: 98daee60bb968294e897f5de7c2a8c36, type: 2}
       propertyPath: m_LocalPosition.z
@@ -363,6 +363,11 @@ Prefab:
         type: 2}
       propertyPath: m_DistanceFromScreenSides.y
       value: -1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 20490477973506580, guid: 98daee60bb968294e897f5de7c2a8c36,
+        type: 2}
+      propertyPath: m_OcclusionCulling
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98daee60bb968294e897f5de7c2a8c36, type: 2}
@@ -513,7 +518,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -1, y: -1, z: 0}
   m_Size: {x: 3, y: 2, z: 1}
-  m_TileAnchor: {x: 0, y: 0, z: 0}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -1017,7 +1022,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -4, y: -3, z: 0}
   m_Size: {x: 8, y: 5, z: 1}
-  m_TileAnchor: {x: 0, y: 0, z: 0}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
