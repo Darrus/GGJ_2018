@@ -58,7 +58,7 @@ public class SubscriptionSystem {
         }
     }
 
-    public void UnsubcribeEvent(string _eventName, UnityAction _functionCall)
+    public void UnsubscribeEvent(string _eventName, UnityAction _functionCall)
     {
         UnityEventBase eventListener;
         if (m_FunctionWithNoParamDictionary.TryGetValue(_eventName, out eventListener))
@@ -67,7 +67,7 @@ public class SubscriptionSystem {
         }
     }
 
-    public void UnsubcribeEvent<T>(string _eventName, UnityAction<T> _functionCall)
+    public void UnsubscribeEvent<T>(string _eventName, UnityAction<T> _functionCall)
     {
         UnityEventBase eventListener;
         if (m_FunctionWithNoParamDictionary.TryGetValue(_eventName, out eventListener))

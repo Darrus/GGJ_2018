@@ -76,11 +76,18 @@ public class TileSystem : Singleton<TileSystem> {
         return returnList;
     }
 
-    public TileScript GetTileScript(Vector3 pos)
+    public TileScript GetTileScript(Vector3 _pos)
     {
-        int PositionOfTileX_ToTileMap = (int)(pos.x / m_TileMap.cellSize.x);
-        int PositionOfTileY_ToTileMap = (int)(pos.y / m_TileMap.cellSize.y);
+        int PositionOfTileX_ToTileMap = (int)(_pos.x / m_TileMap.cellSize.x);
+        int PositionOfTileY_ToTileMap = (int)(_pos.y / m_TileMap.cellSize.y);
         return m_TileMap.GetInstantiatedObject(new Vector3Int(PositionOfTileX_ToTileMap, PositionOfTileY_ToTileMap, 0)).GetComponent<TileScript>();
+    }
+
+    public void RemoveTile(Vector3 _pos)
+    {
+        int PositionOfTileX_ToTileMap = (int)(_pos.x / m_TileMap.cellSize.x);
+        int PositionOfTileY_ToTileMap = (int)(_pos.y / m_TileMap.cellSize.y);
+        m_TileMap.SetTile(new Vector3Int(PositionOfTileX_ToTileMap, PositionOfTileY_ToTileMap, 0), null);
     }
 
     public List<TileScript> GetFoundPath(TileScript _startTile, TileScript _endTile)
