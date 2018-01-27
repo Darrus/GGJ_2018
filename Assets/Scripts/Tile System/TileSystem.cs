@@ -6,9 +6,14 @@ using UnityEngine.Tilemaps;
 /// <summary>
 /// Used for A* search
 /// </summary>
-public class TileSystem : MonoBehaviour {
+public class TileSystem : Singleton<TileSystem> {
     [SerializeField, Tooltip("Tile map to walk through")]
     protected Tilemap m_TileMap;
+    public Tilemap TileMap
+    {
+        get { return m_TileMap; }
+    }
+
 
     [Header("Debugging")]
     [SerializeField, Tooltip("Array of the TileScripts")]
