@@ -107,6 +107,7 @@ public class TileSystem : MonoBehaviour {
                 // make sure it is not in the open set and it is walkable
                 if (neighbourTile.TileType == TileScript.TILE_TYPE.WALKABLE && !openSetTileScript.Contains(neighbourTile) && !closedSet.Contains(neighbourTile))
                 {
+                    // this might not be the correct way to calculate GCost but it works for now
                     float GCost = Vector3.Distance(_startTile.transform.position, neighbourTile.transform.position) + cheapestNode.g_cost;
                     float HCost = Vector3.Distance(neighbourTile.transform.position, _endTile.transform.position);
                     AStar_Node nodePath = new AStar_Node(neighbourTile, GCost, HCost, cheapestNode);
@@ -148,6 +149,7 @@ public class TileSystem : MonoBehaviour {
                 switch (TileDataStuff.TileType)
                 {
                     case TileScript.TILE_TYPE.INACCESSIBLE:
+                    case TileScript.TILE_TYPE.OCCUPIED:
                         Gizmos.color = Color.red;
                         break;
                     default:
