@@ -12,6 +12,7 @@ public class SelectionManager : Singleton<SelectionManager>
     void Awake()
     {
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("SelectPlayer", SelectPlayer);
+        SubscriptionSystem.Instance.SubscribeEvent<GameObject>("SelectBuilding", SelectBuilding);
         SubscriptionSystem.Instance.SubscribeEvent("DeselectPlayer", DeselectPlayer);
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("SelectEnemy", SelectEnemy);
         SubscriptionSystem.Instance.SubscribeEvent("DeselectEnemy", DeselectEnemy);
@@ -27,6 +28,13 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             SubscriptionSystem.Instance.TriggerEvent<GameObject>("SelectEnemy", unit.target.gameObject);
         }
+    }
+
+    void SelectBuilding(GameObject go)
+    {
+        playerSelect.transform.SetParent(go.transform);
+        playerSelect.transform.localPosition = new Vector3(1.25f, 1.25f);
+        playerSelect.gameObject.SetActive(true);
     }
 
     void DeselectPlayer()

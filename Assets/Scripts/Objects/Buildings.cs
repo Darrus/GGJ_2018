@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public abstract class Buildings : BaseObject
 {
@@ -28,6 +29,11 @@ public abstract class Buildings : BaseObject
     [SerializeField] int m_OriginalMaxHP;
     public bool isRuined = false;
 
+    [SerializeField]
+    GameObject repairSymbol;
+    [SerializeField]
+    TextMeshPro textMesh;
+
     public float repairDuration;
     public int repairCost;
     float repairTimer;
@@ -44,6 +50,8 @@ public abstract class Buildings : BaseObject
         objectType = OBJECT_TYPE.BUILDING;
         m_OriginalMaxHP = maxHealth;
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
+        repairSymbol.transform.position = new Vector3(1.1f, 1.5f);
+        repairSymbol.gameObject.SetActive(false);
     }
 
     void Update()
@@ -63,6 +71,7 @@ public abstract class Buildings : BaseObject
         if (repair)
         {
             repairTimer -= Time.deltaTime;
+            textMesh.text = ((int)repairTimer).ToString();
             if(repairTimer <= 0.0f)
             {
                 RestoreHealth(m_OriginalMaxHP);
@@ -106,9 +115,10 @@ public abstract class Buildings : BaseObject
     void Select(GameObject go)
     {
         if(go == this.gameObject)
-        {       
-            //SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
-            if(m_StateOfBuilding == STATE_OF_BUILDING.RUINED)
+        {
+            SubscriptionSystem.Instance.TriggerEvent<GameObject>("SelectBuilding", this.gameObject);
+            SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
+            if (m_StateOfBuilding == STATE_OF_BUILDING.RUINED)
             {
                 SubscriptionSystem.Instance.SubscribeEvent("Repair", Repair);
             }
@@ -117,8 +127,10 @@ public abstract class Buildings : BaseObject
 
     void Repair()
     {
+        Debug.Log("REPAIR");
         if(ResourceManager.Instance.GetResourceCount(ResourceManager.RESOURCE_TYPE.WOOD) > repairCost)
         {
+            repairSymbol.gameObject.SetActive(true);
             ResourceManager.Instance.UseResource(ResourceManager.RESOURCE_TYPE.WOOD, repairCost);
             repair = true;
             repairTimer = repairDuration;

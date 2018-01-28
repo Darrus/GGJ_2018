@@ -21,7 +21,6 @@ public class Player : Units
 
     void Deselect(GameObject go)
     {
-        SubscriptionSystem.Instance.TriggerEvent("DeselectPlayer");
         SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", InteractSelected);
         SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("RightClick", Deselect);
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
@@ -42,6 +41,7 @@ public class Player : Units
                     Harvester harvest = baseObject as Harvester;
                     if (harvest != null)
                     {
+                        SubscriptionSystem.Instance.TriggerEvent("DeselectEnemy");
                         Deselect(null);
                         break;
                     }

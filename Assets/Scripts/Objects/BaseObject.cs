@@ -38,7 +38,6 @@ public class BaseObject : MonoBehaviour {
     protected virtual void InitCurrentTile()
     {
         SubscriptionSystem.Instance.UnsubscribeEvent("TileUpdated", InitCurrentTile);
-        Debug.Log(TileSystem.Instance);
         currentTile = TileSystem.Instance.GetTileScript(transform.position);
         currentTile.UnitEnterTile(this.gameObject);
         if(objectType == OBJECT_TYPE.UNITS)
@@ -72,5 +71,10 @@ public class BaseObject : MonoBehaviour {
             ObjectManager.Instance.RemoveObject(objectType, this);
         if(currentTile != null)
             currentTile.UnitExitTile(this.gameObject);
+    }
+
+    public virtual void PlaySFX(string name)
+    {
+        SoundManager.Instance.PlaySFX(name);
     }
 }
