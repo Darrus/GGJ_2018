@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 /// <summary>
 /// Used for A* search
 /// </summary>
-public class TileSystem : Singleton<TileSystem> {
+public class TileSystem : MonoBehaviour {
     [SerializeField, Tooltip("Tile map to walk through")]
     protected Tilemap m_TileMap;
     public Tilemap TileMap
@@ -14,6 +14,11 @@ public class TileSystem : Singleton<TileSystem> {
         get { return m_TileMap; }
     }
 
+    public static TileSystem Instance
+    {
+        get;
+        private set;
+    }
 
     [Header("Debugging")]
     [SerializeField, Tooltip("Array of the TileScripts")]
@@ -38,6 +43,11 @@ public class TileSystem : Singleton<TileSystem> {
             get { return g_cost + h_cost; }
         }
         public AStar_Node m_Parent;
+    }
+
+    void Awake()
+    {
+        Instance = this;
     }
 
 	// Use this for initialization

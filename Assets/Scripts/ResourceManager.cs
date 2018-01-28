@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class ResourceManager : Singleton<ResourceManager> {
+public class ResourceManager : MonoBehaviour {
     public enum RESOURCE_TYPE
     {
         WOOD,
         STEEL,
         MAX
+    }
+
+    public static ResourceManager Instance
+    {
+        get;
+        private set;
     }
 
     int[] resources;
@@ -22,6 +28,7 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     private void Awake()
     {
+        Instance = this;
         resources = new int[(int)RESOURCE_TYPE.MAX];
     }
 

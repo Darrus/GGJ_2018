@@ -83,3 +83,6 @@ MonoBehaviour:
   health: 0
   currentTile: {fileID: 0}
   resourceType: 0
+  maxGatherAmount: 5
+  gatherGain: 20
+  ui: {fileID: 0}
