@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Units
 {
+    public EnemyHealthUI healthBar;
     protected override void Awake()
     {
         base.Awake();
@@ -69,7 +70,7 @@ public class Enemy : Units
             return;
         }
 
-        Vector3 direction = path.Peek().transform.position - transform.position;
+        Vector3 direction = path.Peek().transform.position + new Vector3(1.25f, 1.25f) - transform.position;
         if (direction.sqrMagnitude < 0.01f)
         {
             currentTile.UnitExitTile(this.gameObject);
@@ -95,8 +96,10 @@ public class Enemy : Units
         }
 
         health -= amount;
+        healthBar.UpdateHealthBar((float)health, (float)maxHealth);
         if (health < 0)
         {
+            SubscriptionSystem.Instance.TriggerEvent("DeselectEnemy");
             isDead = true;
             Destroy(this.gameObject);
         }

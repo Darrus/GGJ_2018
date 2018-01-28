@@ -14,7 +14,7 @@ public class Harvester : Units
     {
         if (go == this.gameObject)
         {
-            SubscriptionSystem.Instance.TriggerEvent("SelectHarvester");
+            SubscriptionSystem.Instance.TriggerEvent<GameObject>("SelectPlayer", this.gameObject);
             SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("RightClick", Deselect);
@@ -23,6 +23,7 @@ public class Harvester : Units
 
     void Deselect(GameObject go)
     {
+        SubscriptionSystem.Instance.TriggerEvent("DeselectPlayer");
         SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", InteractSelected);
         SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("RightClick", Deselect);
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
@@ -30,7 +31,11 @@ public class Harvester : Units
 
     void InteractSelected(GameObject go)
     {
+        if (go == this.gameObject)
+            return;
+
         BaseObject baseObject = go.GetComponent<BaseObject>();
+
         if (baseObject != null)
         {
             switch (baseObject.objectType)
@@ -66,7 +71,7 @@ public class Harvester : Units
             return;
         }
 
-        Vector3 direction = path.Peek().transform.position - transform.position;
+        Vector3 direction = path.Peek().transform.position + new Vector3(1.25f, 1.25f) - transform.position;
         lastTile = currentTile;
         if (direction.sqrMagnitude < 0.01f)
         {

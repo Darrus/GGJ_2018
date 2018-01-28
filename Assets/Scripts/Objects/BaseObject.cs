@@ -40,7 +40,11 @@ public class BaseObject : MonoBehaviour {
         SubscriptionSystem.Instance.UnsubscribeEvent("TileUpdated", InitCurrentTile);
         currentTile = TileSystem.Instance.GetTileScript(transform.position);
         currentTile.UnitEnterTile(this.gameObject);
-        transform.position = currentTile.transform.position;
+        if(objectType == OBJECT_TYPE.UNITS)
+           transform.position = currentTile.transform.position + new Vector3(1.25f, 1.25f);
+        else
+           transform.position = currentTile.transform.position;
+
         ObjectManager.Instance.AddObject(objectType, this);
     }
 
