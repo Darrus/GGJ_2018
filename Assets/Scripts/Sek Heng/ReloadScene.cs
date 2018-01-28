@@ -7,7 +7,6 @@ public class ReloadScene : MonoBehaviour {
     public void ReloadSceneButton()
     {
         SubscriptionSystem.Instance.TriggerEvent("Scene Change");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+        SceneManagerHelper.Instance.TransitWithLoading(SceneManager.GetActiveScene().name);
     }
 }
