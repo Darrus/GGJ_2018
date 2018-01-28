@@ -185,8 +185,8 @@ MonoBehaviour:
   isRuined: 0
   repairSymbol: {fileID: 1826962991966450}
   textMesh: {fileID: 114740207000730844}
-  repairDuration: 0
-  repairCost: 0
+  repairDuration: 30
+  repairCost: 50
   m_DestroyIt: 0
   m_RestoreFullHealth: 0
 --- !u!114 &114740207000730844
@@ -235,14 +235,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 2.5
+  m_fontSizeBase: 2.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -366,6 +366,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.078, y: 0.206}
+  m_AnchoredPosition: {x: -0.003, y: 0.296}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}

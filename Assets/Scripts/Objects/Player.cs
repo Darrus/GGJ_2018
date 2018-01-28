@@ -2,6 +2,8 @@
 
 public class Player : Units
 {
+    public int repairCost = 50;
+
     protected override void Awake()
     {
         base.Awake();
@@ -13,6 +15,7 @@ public class Player : Units
         if(go == this.gameObject)
         {
             SubscriptionSystem.Instance.TriggerEvent<GameObject>("SelectPlayer", this.gameObject);
+            SubscriptionSystem.Instance.SubscribeEvent("Repair", Repair);
             SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("RightClick", Deselect);
@@ -21,9 +24,21 @@ public class Player : Units
 
     void Deselect(GameObject go)
     {
+        SubscriptionSystem.Instance.UnsubscribeEvent("Repair", Repair);
         SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", InteractSelected);
         SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("RightClick", Deselect);
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
+    }
+
+    void Repair()
+    {
+        if (ResourceManager.Instance.GetResourceCount(ResourceManager.RESOURCE_TYPE.STEEL) > repairCost)
+        {
+            SoundManager.Instance.PlaySFX("NomadStrategyRobot Repair");
+            ResourceManager.Instance.UseResource(ResourceManager.RESOURCE_TYPE.WOOD, repairCost);
+            health = maxHealth;
+            SubscriptionSystem.Instance.UnsubscribeEvent("Repair", Repair);
+        }
     }
 
     void InteractSelected(GameObject go)

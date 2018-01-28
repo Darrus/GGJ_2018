@@ -1201,8 +1201,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -402, y: 310}
-  m_SizeDelta: {x: 213, y: 143}
+  m_AnchoredPosition: {x: -444, y: 323}
+  m_SizeDelta: {x: 79, y: 79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &657507322
 MonoBehaviour:
@@ -1499,11 +1499,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114324714062889878, guid: 5f1aeb999dff9d043b1bfee1b303e006,
-        type: 2}
-      propertyPath: actionDelayDuration
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f1aeb999dff9d043b1bfee1b303e006, type: 2}
   m_IsPrefabParent: 0
@@ -1704,7 +1699,7 @@ MonoBehaviour:
     type: 2}
   maxPool: 10
   defaultBGMVolume: 1
-  defaultSFXVolume: 0.08
+  defaultSFXVolume: 0.1
   defaultAmbientVolume: 1
   bgm:
   - {fileID: 8300000, guid: e61c24f0e9184804fa902608c5b1a061, type: 3}
@@ -1768,21 +1763,6 @@ Prefab:
     - target: {fileID: 4374891736415178, guid: 5cbf96e5862473a44934f51a68b2828a, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61111061414878244, guid: 5cbf96e5862473a44934f51a68b2828a,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: 1.085
-      objectReference: {fileID: 0}
-    - target: {fileID: 95878991054004908, guid: 5cbf96e5862473a44934f51a68b2828a,
-        type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f3fd19ec41641494da98094987d5d32c, type: 2}
-    - target: {fileID: 114831091265695570, guid: 5cbf96e5862473a44934f51a68b2828a,
-        type: 2}
-      propertyPath: maxHealth
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5cbf96e5862473a44934f51a68b2828a, type: 2}
@@ -2237,28 +2217,6 @@ MonoBehaviour:
   - Default
   m_EventName: RightClick
   m_Raycast2DObj: {fileID: 0}
---- !u!1 &1892678653 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1894154221703450, guid: 5f1aeb999dff9d043b1bfee1b303e006,
-    type: 2}
-  m_PrefabInternal: {fileID: 892030168}
---- !u!95 &1892678657
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1892678653}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0a2d13506544ae04794ebdff0eb2e119, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &2019721859
 GameObject:
   m_ObjectHideFlags: 0

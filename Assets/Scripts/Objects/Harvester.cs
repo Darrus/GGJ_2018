@@ -14,6 +14,7 @@ public class Harvester : Units
     {
         if (go == this.gameObject)
         {
+            SubscriptionSystem.Instance.TriggerEvent("DeselectEnemy");
             SubscriptionSystem.Instance.TriggerEvent<GameObject>("SelectPlayer", this.gameObject);
             SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
             SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", InteractSelected);
@@ -65,6 +66,7 @@ public class Harvester : Units
             ResourceObject item = target.GetComponent<ResourceObject>();
             if (item != null && actionDelayTimer <= 0.0f)
             {
+                PlaySFX("NomadStrategyHarvestingMachinery");
                 ResourceManager.Instance.AddResource(item.resourceType, item.Gather());
                 actionDelayTimer = actionDelayDuration;
             }

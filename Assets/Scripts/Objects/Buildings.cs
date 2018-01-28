@@ -50,7 +50,7 @@ public abstract class Buildings : BaseObject
         objectType = OBJECT_TYPE.BUILDING;
         m_OriginalMaxHP = maxHealth;
         SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
-        repairSymbol.transform.position = new Vector3(1.1f, 1.5f);
+        repairSymbol.transform.position = new Vector3(1.2f, 1.7f);
         repairSymbol.gameObject.SetActive(false);
     }
 
@@ -127,9 +127,9 @@ public abstract class Buildings : BaseObject
 
     void Repair()
     {
-        Debug.Log("REPAIR");
-        if(ResourceManager.Instance.GetResourceCount(ResourceManager.RESOURCE_TYPE.WOOD) > repairCost)
+        if(ResourceManager.Instance.GetResourceCount(ResourceManager.RESOURCE_TYPE.WOOD) > repairCost && !repair)
         {
+            SoundManager.Instance.PlaySFX("NomadStrategyRepairBuilding");
             repairSymbol.gameObject.SetActive(true);
             ResourceManager.Instance.UseResource(ResourceManager.RESOURCE_TYPE.WOOD, repairCost);
             repair = true;
