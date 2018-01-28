@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Actual Scenes/Spash Screen.unity
+    guid: 14365f5300c776f49bd973c8a7aba6e8
+  - enabled: 1
     path: Assets/Scenes/Actual Scenes/Start Screen.unity
     guid: 047105bad39d22f49af3c010b0b9eff6
   - enabled: 1
     path: Assets/Scenes/Actual Scenes/Game Screen.unity
     guid: dd754827ff38f0a4b870bc489531e9b7
+  - enabled: 1
+    path: Assets/Scenes/Actual Scenes/Loading Screen.unity
+    guid: 770f4ec7706ae884284284d0dc986405

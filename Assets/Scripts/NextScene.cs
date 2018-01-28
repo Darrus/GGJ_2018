@@ -7,7 +7,8 @@ public class NextScene : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
+        SceneManagerHelper.Instance.TransitWithLoading(sceneName);
         SubscriptionSystem.Instance.TriggerEvent("Scene Change");
     }
 }
