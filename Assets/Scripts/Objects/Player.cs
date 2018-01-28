@@ -129,4 +129,10 @@ public class Player : Units
         Vector3 newPosition = transform.position + direction.normalized * moveSpeed * Time.deltaTime;
         transform.position = newPosition;
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        SubscriptionSystem.Instance.TriggerEvent<BaseObject.OBJECT_TYPE>("UnitDestroyed", objectType);
+    }
 }

@@ -8,6 +8,10 @@ public class Enemy : Units
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    private void Start()
+    {
         SubscriptionSystem.Instance.TriggerEvent<Transform>("SpawnArrow", transform);
     }
 

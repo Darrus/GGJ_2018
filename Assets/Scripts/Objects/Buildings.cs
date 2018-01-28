@@ -71,6 +71,8 @@ public abstract class Buildings : BaseObject
             maxHealth = m_OriginalMaxHP;
             ObjectManager.Instance.RemoveObject(objectType, this);
             isRuined = true;
+            // trigger that it is being destroyed
+            SubscriptionSystem.Instance.TriggerEvent<BaseObject.OBJECT_TYPE>("HouseDestroyed", objectType);
         }
     }
 
