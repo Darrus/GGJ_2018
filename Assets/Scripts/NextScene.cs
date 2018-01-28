@@ -8,5 +8,6 @@ public class NextScene : MonoBehaviour
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        SubscriptionSystem.Instance.TriggerEvent("Scene Change");
     }
 }

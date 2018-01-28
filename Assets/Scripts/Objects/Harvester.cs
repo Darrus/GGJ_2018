@@ -55,13 +55,18 @@ public class Harvester : Units
 
     protected override void Attack()
     {
+        if(target == null)
+        {
+            state = UNIT_STATE.IDLE;
+            return;
+        }
+
         if (path.Count <= 0)
         {
             ResourceObject item = target.GetComponent<ResourceObject>();
             if (item != null && actionDelayTimer <= 0.0f)
             {
-                Debug.Log(item);
-                ResourceManager.Instance.AddResource(item.resourceType, item.Gather(damage));
+                ResourceManager.Instance.AddResource(item.resourceType, item.Gather());
                 actionDelayTimer = actionDelayDuration;
             }
             if (target.isDead)

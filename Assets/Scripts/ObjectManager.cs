@@ -13,8 +13,14 @@ public class ObjectManager : Singleton<ObjectManager>
 
     private void Awake()
     {
+        SubscriptionSystem.Instance.SubscribeEvent("Scene Change", Init);
+        Init();
+    }
+
+    void Init()
+    {
         objectList = new List<BaseObject>[(int)BaseObject.OBJECT_TYPE.MAX];
-        for(int i = 0; i < objectList.Length; ++i)
+        for (int i = 0; i < objectList.Length; ++i)
         {
             objectList[i] = new List<BaseObject>();
         }

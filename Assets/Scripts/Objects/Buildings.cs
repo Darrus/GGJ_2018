@@ -28,12 +28,27 @@ public abstract class Buildings : BaseObject
     [SerializeField] int m_OriginalMaxHP;
     public bool isRuined = false;
 
+    public float repairDuration;
+    public int repairCost;
+    float repairTimer;
+    bool repair = false;
+
 #if UNITY_EDITOR
     [SerializeField] bool m_DestroyIt = false;
     [SerializeField] bool m_RestoreFullHealth = false;
+#endif
 
-    private void Update()
+    protected override void Awake()
     {
+        base.Awake();
+        objectType = OBJECT_TYPE.BUILDING;
+        m_OriginalMaxHP = maxHealth;
+        SubscriptionSystem.Instance.SubscribeEvent<GameObject>("LeftClick", Select);
+    }
+
+    void Update()
+    {
+ #if UNITY_EDITOR
         if (m_DestroyIt)
         {
             TakeDamage(maxHealth);
@@ -44,14 +59,16 @@ public abstract class Buildings : BaseObject
             RestoreHealth(maxHealth);
             m_RestoreFullHealth = false;
         }
-    }
 #endif
-
-    protected override void Awake()
-    {
-        base.Awake();
-        objectType = OBJECT_TYPE.BUILDING;
-        m_OriginalMaxHP = maxHealth;
+        if (repair)
+        {
+            repairTimer -= Time.deltaTime;
+            if(repairTimer <= 0.0f)
+            {
+                RestoreHealth(m_OriginalMaxHP);
+                repair = false;
+            }
+        }
     }
 
     protected override void OnDestroy()
@@ -81,6 +98,29 @@ public abstract class Buildings : BaseObject
         {
             m_StateOfBuilding = STATE_OF_BUILDING.COMPLETE;
             BuildingManager.Instance.SetBuildingTile(m_ListOfUpgrades[m_CurrentUpgradeIndex].m_UpgradedTile, transform.position);
+        }
+    }
+
+    void Select(GameObject go)
+    {
+        if(go == this.gameObject)
+        {       
+            //SubscriptionSystem.Instance.UnsubscribeEvent<GameObject>("LeftClick", Select);
+            if(m_StateOfBuilding == STATE_OF_BUILDING.RUINED)
+            {
+                SubscriptionSystem.Instance.SubscribeEvent("Repair", Repair);
+            }
+        }
+    }
+
+    void Repair()
+    {
+        if(ResourceManager.Instance.GetResourceCount(ResourceManager.RESOURCE_TYPE.WOOD) > repairCost)
+        {
+            ResourceManager.Instance.UseResource(ResourceManager.RESOURCE_TYPE.WOOD, repairCost);
+            repair = true;
+            repairTimer = repairDuration;
+            SubscriptionSystem.Instance.UnsubscribeEvent("Repair", Repair);
         }
     }
 
