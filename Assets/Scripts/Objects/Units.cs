@@ -54,6 +54,7 @@ public class Units : BaseObject {
     {
         Tilemap tilemap = TileSystem.Instance.TileMap;
         state = UNIT_STATE.MOVE;
+        animator.SetInteger("state", 1);
         path = new Queue<TileScript>(
             TileSystem.Instance.GetFoundPath(
             currentTile,
@@ -77,6 +78,7 @@ public class Units : BaseObject {
         if(path == null || path.Count <= 0)
         {
             state = UNIT_STATE.IDLE;
+            animator.SetInteger("state", 0);
             return;
         }
 

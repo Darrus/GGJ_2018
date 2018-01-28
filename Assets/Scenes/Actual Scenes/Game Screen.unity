@@ -1944,11 +1944,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 331523046296970082, guid: d56f0837925b88b44a8cc56a25f104cf,
-        type: 2}
-      propertyPath: m_IsCustomRangeActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d56f0837925b88b44a8cc56a25f104cf, type: 2}
   m_IsPrefabParent: 0
@@ -2252,7 +2247,7 @@ TilemapRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: b5eca2287ba3909499f08c8f0771aac3, type: 2}
+  - {fileID: 2100000, guid: dcb2d025321a3164c84e0f6bad583dd9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

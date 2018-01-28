@@ -49,7 +49,11 @@ public class Enemy : Units
 
         if (path.Count <= 0)
         {
-            if(target == null)
+            if (animator.GetInteger("state") != 0)
+                animator.SetInteger("state", 0);
+
+
+            if (target == null)
             {
                 state = UNIT_STATE.IDLE;
                 return;
@@ -57,6 +61,8 @@ public class Enemy : Units
 
             if (actionDelayTimer <= 0.0f)
             {
+                if (animator.GetInteger("state") != 2)
+                    animator.SetInteger("state", 2);
                 target.TakeDamage(damage);
                 actionDelayTimer = actionDelayDuration;
             }
@@ -70,7 +76,19 @@ public class Enemy : Units
             return;
         }
 
+        if(animator.GetInteger("state") != 1)
+            animator.SetInteger("state", 1);
+
         Vector3 direction = path.Peek().transform.position + new Vector3(1.25f, 1.25f) - transform.position;
+        
+        // Set sprite direction
+        animator.SetFloat("moveX", direction.x);
+        animator.SetFloat("moveY", direction.y);
+        if (direction.x < 0.0f)
+            spriteRenderer.flipX = true;
+        else if (direction.x > 0.0f)
+            spriteRenderer.flipX = false;
+
         if (direction.sqrMagnitude < 0.01f)
         {
             currentTile.UnitExitTile(this.gameObject);

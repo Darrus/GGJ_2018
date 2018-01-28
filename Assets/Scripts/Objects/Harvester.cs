@@ -77,6 +77,10 @@ public class Harvester : Units
         }
 
         Vector3 direction = path.Peek().transform.position + new Vector3(1.25f, 1.25f) - transform.position;
+        if (direction.x < 0.0f)
+            spriteRenderer.flipX = true;
+        else if (direction.x > 0.0f)
+            spriteRenderer.flipX = false;
         lastTile = currentTile;
         if (direction.sqrMagnitude < 0.01f)
         {

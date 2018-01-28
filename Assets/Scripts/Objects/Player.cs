@@ -74,6 +74,8 @@ public class Player : Units
             if(target == null)
             {
                 state = UNIT_STATE.IDLE;
+                if (animator.GetInteger("state") != 0)
+                    animator.SetInteger("state", 0);
                 return;
             }
 
@@ -82,6 +84,8 @@ public class Player : Units
             {
                 if (actionDelayTimer <= 0.0f)
                 {
+                    if (animator.GetInteger("state") != 2)
+                        animator.SetInteger("state", 2);
                     enemy.TakeDamage(damage);
                     actionDelayTimer = actionDelayDuration;
                 }
@@ -90,12 +94,16 @@ public class Player : Units
             if (target.isDead)
             {
                 state = UNIT_STATE.IDLE;
+                if (animator.GetInteger("state") != 0)
+                    animator.SetInteger("state", 0);
                 return;
             }
         }
 
         Vector3 direction = path.Peek().transform.position + new Vector3(1.25f, 1.25f) - transform.position;
-        
+        if (animator.GetInteger("state") != 1)
+            animator.SetInteger("state", 1);
+
         // Set sprite direction
         animator.SetFloat("moveX", direction.x);
         animator.SetFloat("moveY", direction.y);
