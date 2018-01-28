@@ -40,16 +40,6 @@ public class ArrowPointToUnit : MonoBehaviour {
     {
         if (m_TargetTransform)
         {
-            // then calculate the distance it should be away from the camera! one thing for sure we can just use the camera direction!
-            //Vector3 directionFromCameraToTarget = m_TargetTransform.position - Camera.main.transform.position;
-            //directionFromCameraToTarget.z = 0;
-            //directionFromCameraToTarget.Normalize();
-            //directionFromCameraToTarget *= m_OffsetRadius;
-
-            //directionFromCameraToTarget.x = Mathf.Clamp(directionFromCameraToTarget.x, Camera.main.transform.position.x - m_ScreenHalfSize.x, Camera.main.transform.position.x + m_ScreenHalfSize.x);
-            //directionFromCameraToTarget.y = Mathf.Clamp(directionFromCameraToTarget.y, Camera.main.transform.position.y - m_ScreenHalfSize.y, Camera.main.transform.position.y + m_ScreenHalfSize.y);
-            //transform.position = Camera.main.WorldToViewportPoint(directionFromCameraToTarget);
-
             Vector3 targetToCanvasTransform = m_ParentCanvas.transform.InverseTransformPoint(m_TargetTransform.position);
             Vector3 CameraAtCanvas = m_ParentCanvas.transform.InverseTransformPoint(Camera.main.transform.position);
             Vector3 directionFromPosToTarget = CameraAtCanvas - targetToCanvasTransform;
@@ -58,6 +48,7 @@ public class ArrowPointToUnit : MonoBehaviour {
             directionFromPosToTarget += targetToCanvasTransform;
             directionFromPosToTarget.x = Mathf.Clamp(directionFromPosToTarget.x, -m_ScreenHalfSize.x, m_ScreenHalfSize.x);
             directionFromPosToTarget.y = Mathf.Clamp(directionFromPosToTarget.y, -m_ScreenHalfSize.y, m_ScreenHalfSize.y);
+            directionFromPosToTarget.z = transform.localPosition.z;
             transform.localPosition = directionFromPosToTarget;
 
             // just stare at the target transform
